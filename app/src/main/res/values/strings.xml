@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PetPlanet</string>
+    <string name="scan_result">Scan qr code</string>
+</resources>
