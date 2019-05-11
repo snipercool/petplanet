@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "409998841528",
+    "firebase_url": "https://petplanet-63aa0.firebaseio.com",
+    "project_id": "petplanet-63aa0",
+    "storage_bucket": "petplanet-63aa0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409998841528:android:44f890a2f64a176a",
+        "android_client_info": {
+          "package_name": "be.example.petplanet.petplanet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409998841528-f0hi128hqn39ujju2ikdppqord5ji4p8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "be.example.petplanet.petplanet",
+            "certificate_hash": "d9a1c9a67ac2a5899d173d1d49baa09369810671"
+          }
+        },
+        {
+          "client_id": "409998841528-mj60la08nal9ms76nd1oqraiht44dvfd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD33Lu0LwHLbO8QkLcnhCJYg0OtPD-M9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409998841528-mj60la08nal9ms76nd1oqraiht44dvfd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
