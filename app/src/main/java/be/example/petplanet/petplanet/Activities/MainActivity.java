@@ -18,6 +18,13 @@ import java.util.Arrays;
 
 import be.example.petplanet.petplanet.R;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.support.v4.app.NotificationCompat;
+
+import android.view.View;
+import android.widget.Button;
+
 //Authenticatie code voor gebruiker
 
 public class MainActivity extends AppCompatActivity {
@@ -39,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
     private String mUsername;
 
+    // Score
+    private int score;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         // Inloggen
-
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -78,6 +87,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
+        //Test tot optimalisatie homescreen
+        Button btn_notification = findViewById(R.id.btn_notification);
+
+        //Start functie bij klik
+        btn_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addNotification();
+            }
+        });
     }
 
     // Menu
@@ -138,4 +158,57 @@ public class MainActivity extends AppCompatActivity {
     private void onSignedOutCleanup() {
         mUsername = ANONYMOUS;
     }
+
+    // Notificatie
+    private void addNotification() {
+
+        /*Pas volgende code aan volgens de score die bepaald is bij user story 3!!!*/
+        score = -5;
+        //Planeet = slecht
+        if(score <= 0){
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                            .setSmallIcon(R.mipmap.ic_launcher_round)
+                            .setContentTitle("Your planet is dying.")
+                            .setContentText("Oh no! Your planet is at the verge of destruction. You can still save it by taking action.");
+
+            // Intent
+            Intent notificationIntent = new Intent(this, MainActivity.class);
+            PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setContentIntent(contentIntent);
+
+            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.notify(0, builder.build());
+        }
+        //Planeet = oké
+        else if(score > 0 & score <= 50){
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                            .setSmallIcon(R.mipmap.ic_launcher_round)
+                            .setContentTitle("Everything is going okay.")
+                            .setContentText("Nothing went wrong nor good but don't forget to take care.");
+
+            // Intent
+            Intent notificationIntent = new Intent(this, MainActivity.class);
+            PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setContentIntent(contentIntent);
+
+            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.notify(0, builder.build());
+        }
+        //Planeet = goed
+        else{
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                            .setSmallIcon(R.mipmap.ic_launcher_round)
+                            .setContentTitle("Everybody is happy.")
+                            .setContentText("Well done! Your planet has never been alive as it is now.");
+
+            // Intent
+            Intent notificationIntent = new Intent(this, MainActivity.class);
+            PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setContentIntent(contentIntent);
+
+            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.notify(0, builder.build());
+        }
+
+        
 }
