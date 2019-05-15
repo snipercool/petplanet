@@ -1,7 +1,9 @@
 package be.example.petplanet.petplanet.Activities;
 
+import android.app.NotificationChannel;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -166,11 +168,13 @@ public class MainActivity extends AppCompatActivity {
         /*Pas volgende code aan volgens de score die bepaald is bij user story 3!!!*/
         score = -5;
         //Planeet = slecht
-        if(score <= 0){
+        if (score <= 0) {
+
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.mipmap.ic_launcher_round)
-                            .setContentTitle("Your planet is dying.")
-                            .setContentText("Oh no! Your planet is at the verge of destruction. You can still save it by taking action.");
+                    .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setContentTitle("Your planet is dying.")
+                    .setContentText("Oh no! Your planet is at the verge of destruction. You can still save it by taking action.")
+                    .setAutoCancel(true);
 
             // Intent
             Intent notificationIntent = new Intent(this, MainActivity.class);
@@ -181,11 +185,11 @@ public class MainActivity extends AppCompatActivity {
             manager.notify(0, builder.build());
         }
         //Planeet = oké
-        else if(score > 0 & score <= 50){
+        else if (score > 0 & score <= 50) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.mipmap.ic_launcher_round)
-                            .setContentTitle("Everything is going okay.")
-                            .setContentText("Nothing went wrong nor good but don't forget to take care.");
+                    .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setContentTitle("Everything is going okay.")
+                    .setContentText("Nothing went wrong nor good but don't forget to take care.");
 
             // Intent
             Intent notificationIntent = new Intent(this, MainActivity.class);
@@ -210,4 +214,21 @@ public class MainActivity extends AppCompatActivity {
             NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             manager.notify(0, builder.build());
         }
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
 }
