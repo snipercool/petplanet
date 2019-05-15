@@ -1,5 +1,6 @@
 package be.example.petplanet.petplanet.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -195,11 +196,11 @@ public class MainActivity extends AppCompatActivity {
             manager.notify(0, builder.build());
         }
         //Planeet = goed
-        else{
+        else {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.mipmap.ic_launcher_round)
-                            .setContentTitle("Everybody is happy.")
-                            .setContentText("Well done! Your planet has never been alive as it is now.");
+                    .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setContentTitle("Everybody is happy.")
+                    .setContentText("Well done! Your planet has never been alive as it is now.");
 
             // Intent
             Intent notificationIntent = new Intent(this, MainActivity.class);
@@ -209,6 +210,4 @@ public class MainActivity extends AppCompatActivity {
             NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             manager.notify(0, builder.build());
         }
-
-        
 }
