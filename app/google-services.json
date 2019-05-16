@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "414299369393",
+    "firebase_url": "https://petplanet-a860a.firebaseio.com",
+    "project_id": "petplanet-a860a",
+    "storage_bucket": "petplanet-a860a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414299369393:android:44f890a2f64a176a",
+        "android_client_info": {
+          "package_name": "be.example.petplanet.petplanet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "414299369393-sktuot923pi440bh90ndkrl1rqfev9vm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBb029BMr5irq7xbWVSbIgy4D0L18L8vb0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "414299369393-sktuot923pi440bh90ndkrl1rqfev9vm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
