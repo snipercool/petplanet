@@ -1,22 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gv_stats"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    android:columnCount="3"
-    android:orientation="horizontal"
-    >
-    <Button
-        android:id="@+id/btn_menu_planet"
-        android:background="@drawable/planet"
-        />
-    <Button
-        android:id="@+id/btn_menu_camera"
-        android:background="@drawable/qr"
-        />
-    <Button
-        android:id="@+id/btn_menu_stats"
-        android:background="@drawable/grahic"
-        />
-</GridLayout>
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph_temperature"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:foregroundGravity="center_vertical"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/btn_menu_planet"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_weight="1"
+            android:background="@drawable/planet" />
+
+        <Button
+            android:id="@+id/btn_menu_camera"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_weight="1"
+            android:background="@drawable/qr" />
+        <Button
+            android:id="@+id/btn_menu_graphic"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_weight="1"
+            android:background="@drawable/grahic"/>
+    </LinearLayout>
+</RelativeLayout>
