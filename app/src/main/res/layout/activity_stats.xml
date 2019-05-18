@@ -16,29 +16,36 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="75dp"
         android:foregroundGravity="center_vertical"
+        android:gravity="center"
         android:layout_alignParentBottom="true">
 
         <Button
             android:id="@+id/btn_menu_planet"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/planet" />
+            android:background="@drawable/planet"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"/>
 
         <Button
             android:id="@+id/btn_menu_camera"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/qr" />
+            android:background="@drawable/qr"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"/>
         <Button
             android:id="@+id/btn_menu_graphic"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/grahic"/>
+            android:background="@drawable/grahic"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="20dp"/>
     </LinearLayout>
 </RelativeLayout>
