@@ -28,7 +28,7 @@ public class StatsActivity extends AppCompatActivity {
     private DatabaseReference mTemperatureDatabaseReference;
 
     //Listener
-    private ChildEventListener mChildEventListener;
+    private ChildEventListener mTemperatureChildEventListener;
 
     //Graph
     LineGraphSeries seriesTemperature;
@@ -49,10 +49,10 @@ public class StatsActivity extends AppCompatActivity {
         mSensorsDatabaseReference = mFirebaseDatabase.getReference().child("sensors");
         mTemperatureDatabaseReference = mSensorsDatabaseReference.child("temperature");
 
-        //attachDatabaseReadListener();
+        attachDatabaseReadListener();
 
         //Graph
-        GraphView graphTemperature = findViewById(R.id.graph_temperature);
+        GraphView graph = findViewById(R.id.graph_temperature);
         seriesTemperature = new LineGraphSeries();
 
         try {
@@ -63,19 +63,28 @@ public class StatsActivity extends AppCompatActivity {
                     new DataPoint(3, 2),
                     new DataPoint(4, 6)
             });
-            graphTemperature.addSeries(series);
+            graph.addSeries(series);
         } catch (IllegalArgumentException e) {
             Toast.makeText(StatsActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
     //Method to listen to database
-    /*private void attachDatabaseReadListener() {
-        if(mChildEventListener == null){
-            mChildEventListener = new ChildEventListener() {
+    private void attachDatabaseReadListener() {
+        //Temperature
+        if(mTemperatureChildEventListener == null){
+            mTemperatureChildEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    TemperatureClass temperature = dataSnapshot.getValue(TemperatureClass.class);
+                    DataPoint [] dp = new DataPoint[(int) dataSnapshot.getChildrenCount()];
+                    int index = 0;
+
+                    for(DataSnapshot myDataSnaphot : dataSnapshot.getChildren()){
+                        TemperatureClass temperature = myDataSnaphot.getValue(TemperatureClass.class);
+                        //dp[index] = new DataPoint(temperature.getTemperature(), temperature.getDate());
+                        index++;
+                    }
+                    //series.resetData(dp);
                 }
 
                 @Override
@@ -90,9 +99,7 @@ public class StatsActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {}
             };
-            mTemperatureDatabaseReference.addChildEventListener(mChildEventListener);
+            mTemperatureDatabaseReference.addChildEventListener(mTemperatureChildEventListener);
         }
-    }*/
-
-    //TODO: display temperature in beautiful graph
+    }
 }
