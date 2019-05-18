@@ -2,4 +2,5 @@
     <string name="app_name">PetPlanet</string>
     <string name="scan_result">Scan qr code</string>
     <string name="menu_sign_out">Log out</string>
+    <string name="txt_notification">Test the notification</string>
 </resources>
