@@ -3,4 +3,5 @@
     <string name="scan_result">Scan qr code</string>
     <string name="menu_sign_out">Log out</string>
     <string name="txt_notification">Test the notification</string>
+    <string name="logout">logout</string>
 </resources>

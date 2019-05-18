@@ -77,6 +77,15 @@ public class MainActivity extends AppCompatActivity {
         //Notification
         notificationManager = NotificationManagerCompat.from(this);
 
+        //Logout
+        Button btn_logout = findViewById(R.id.btn_logout);
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+            }
+        });
+
         // Inloggen
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
