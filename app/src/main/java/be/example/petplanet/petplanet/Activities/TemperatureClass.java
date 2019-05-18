@@ -1,32 +1,32 @@
 package be.example.petplanet.petplanet.Activities;
 
 public class TemperatureClass {
-    int xValue;
-    int yValue;
+    float temperature;
+    String date;
 
-    //Constructor
+    //Default onstructor
     public TemperatureClass(){
 
     }
 
     //Setters
 
-    public void setxValue(int value){
-        this.xValue = value;
+    public void setTemperature(float temperature){
+        this.temperature = temperature;
     }
 
-    public void setyValue(int value){
-        this.yValue = value;
+    public void setDate(String date){
+        this.date = date;
     }
 
     //Getters
 
-    public int getxValue(){
-        return xValue;
+    public float getTemperature(){
+        return temperature;
     }
 
-    public int getyValue(){
-        return yValue;
+    public String getDate(){
+        return date;
     }
 
     public void PointValue(){
