@@ -1,6 +1,7 @@
 package be.example.petplanet.petplanet.Activities;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
@@ -29,6 +32,9 @@ public class ScannerActivity extends AppCompatActivity {
     BarcodeDetector BarcodeDetector;
     CameraSource CameraSource;
     final int RequestCameraPermissionID =1001;
+
+    Button back;
+
 
 
     @Override
@@ -55,14 +61,24 @@ public class ScannerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
 
+        back = (Button) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(ScannerActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         CameraPreview = (SurfaceView)findViewById(R.id.CameraPreview);
-        TextResult = (TextView)findViewById(R.id.TextResult);
         BarcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE)
                 .build();
         CameraSource = new CameraSource
                 .Builder(this,BarcodeDetector)
-                .setRequestedPreviewSize(640,640)
+                .setAutoFocusEnabled(true)
+                .setRequestedPreviewSize(900, 900)
                 .build();
         CameraPreview.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
@@ -101,12 +117,7 @@ public class ScannerActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> qrcodes = detections.getDetectedItems();
                 if (qrcodes.size() != 0){
-                    TextResult.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            TextResult.setText(qrcodes.valueAt(0).displayValue);
-                        }
-                    });
+                    qrcodes.valueAt(0);
                 }
             }
         });
