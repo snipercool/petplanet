@@ -15,6 +15,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 import be.example.petplanet.petplanet.R;
 
@@ -147,5 +149,51 @@ public class ScannerActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Button mainBtn = (Button) findViewById(R.id.test);
+        mainBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                onButtonClickListener(v);
+            }
+        });
+    }
+
+    private void onButtonClickListener(View view) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScannerActivity.this, R.style.AppTheme);
+
+        alertDialogBuilder.setTitle(this.getTitle()+ " decision");
+        alertDialogBuilder.setMessage("Are you sure?");
+        // set positive button: Yes message
+        alertDialogBuilder.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+                // go to a new activity of the app
+                Intent positveActivity = new Intent(getApplicationContext(),
+                        MainActivity.class);
+                startActivity(positveActivity);
+            }
+        });
+        // set negative button: No message
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+                // cancel the alert box and put a Toast to the user
+                dialog.cancel();
+                Toast.makeText(getApplicationContext(), "You chose a negative answer",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+        // set neutral button: Exit the app message
+        alertDialogBuilder.setNeutralButton("Exit the app",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+                // exit the app and go to the HOME
+                ScannerActivity.this.finish();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show alert
+        alertDialog.show();
     }
 }
