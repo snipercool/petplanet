@@ -1,6 +1,8 @@
 package be.example.petplanet.petplanet.Activities;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -19,6 +21,9 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.IOException;
 
 import be.example.petplanet.petplanet.R;
@@ -32,6 +37,11 @@ public class ScannerActivity extends AppCompatActivity {
     BarcodeDetector BarcodeDetector;
     CameraSource CameraSource;
     final int RequestCameraPermissionID =1001;
+
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mUniqueReference;
+
+
 
     Button back;
 
@@ -115,9 +125,25 @@ public class ScannerActivity extends AppCompatActivity {
 
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
+                mFirebaseDatabase = FirebaseDatabase.getInstance();
+
+
                 final SparseArray<Barcode> qrcodes = detections.getDetectedItems();
                 if (qrcodes.size() != 0){
                     qrcodes.valueAt(0);
+                    AlertDialog.Builder status = new AlertDialog.Builder(ScannerActivity.this, R.style.alertbox);
+                    status.setMessage("")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(ScannerActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
+                    AlertDialog winnerstatus = status.create();
+                    winnerstatus.setTitle("Your score has been added to your planet");
+                    winnerstatus.show();
                 }
             }
         });
