@@ -26,6 +26,18 @@
         android:layout_marginTop="16dp"
         android:text="Go Back"
         android:textColor="#003759" />
+
+    <Button
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#003759"
+        android:layout_alignParentTop="true"
+        android:text="Alert"/>
 </RelativeLayout>
 
 
