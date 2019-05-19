@@ -22,21 +22,15 @@
         android:text="@string/txt_notification"
         tools:ignore="MissingConstraints" />
 
-    <ImageButton
+    <Button
         android:id="@+id/signout"
-        android:layout_width="30dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="1dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="#00FFFFFF"
-        android:baselineAlignBottom="false"
-        android:duplicateParentState="false"
-        android:scaleType="fitCenter"
-        app:layout_constrainedHeight="false"
-        app:layout_constrainedWidth="false"
+        android:text="Logout"
+        tools:ignore="MissingConstraints"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menu"/>
+        android:textColor="@color/colorPrimaryDark"/>
 
     <ImageButton
         android:id="@+id/qrcode"

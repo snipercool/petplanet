@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String CHANNEL_3_ID = "channel3";
     private NotificationManagerCompat notificationManager;
 
-    ImageButton signout;
+    Button signout;
     ImageButton planet;
     ImageButton graphs;
     ImageButton qrcode;
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //signout
-        signout = (ImageButton) findViewById(R.id.signout);
+        signout = (Button) findViewById(R.id.signout);
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
