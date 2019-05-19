@@ -30,6 +30,7 @@ import android.support.v4.app.NotificationCompat;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 //Authenticatie code voor gebruiker
 
@@ -61,10 +62,56 @@ public class MainActivity extends AppCompatActivity {
     public static final String CHANNEL_3_ID = "channel3";
     private NotificationManagerCompat notificationManager;
 
+    Button signout;
+    ImageButton planet;
+    ImageButton graphs;
+    ImageButton qrcode;
+    private Intent MainActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //signout
+        signout = (Button) findViewById(R.id.signout);
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+            }
+        });
+        // go to zonnestelsel
+        planet = (ImageButton) findViewById(R.id.planet);
+        planet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(MainActivity.this, SolarsystemActivity.class);
+                startActivity(intent);
+            }
+        });
+        // go to qrcode
+        qrcode = (ImageButton) findViewById(R.id.qrcode);
+        qrcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(MainActivity.this, ScannerActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // go to grafieken
+        graphs = (ImageButton) findViewById(R.id.graphs);
+        graphs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(MainActivity.this, StatsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Firebase - initializeren van algemene variabelen.
 
@@ -76,15 +123,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Notification
         notificationManager = NotificationManagerCompat.from(this);
-
-        //Logout
-        Button btn_logout = findViewById(R.id.btn_logout);
-        btn_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-            }
-        });
 
         // Inloggen
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -102,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
                                     .setIsSmartLockEnabled(false)
+                                    .setTheme(R.style.AppTheme)
+                                    .setLogo(R.drawable.logo)
                                     .setAvailableProviders(Arrays.asList(
                                             new AuthUI.IdpConfig.GoogleBuilder().build(),
                                             //new AuthUI.IdpConfig.FacebookBuilder().build(),
@@ -111,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
 
         createNotificationChannel();
 
@@ -133,18 +174,6 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.sign_out_menu:
-                // uitloggen
-                AuthUI.getInstance().signOut(this);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     //Een methode om na te gaan of de activiteit al bestond met de bijbehorende parameters.
@@ -194,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
         //Planeet = slecht
         if (score <= 0) {
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setContentTitle("Your planet is dying.")
                 .setContentText("Oh no! Your planet score is getting low.")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -207,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
         //Planeet = ok
         else if (score > 0 & score <= 50) {
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setContentTitle("Everything is going okay.")
                 .setContentText("Nothing went wrong nor good but don't forget to take care.")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -220,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
         //Planeet = goed
         else {
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_3_ID)
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setContentTitle("Your planet is full of hapiness.")
                 .setContentText("Nothing went wrong nor good yet don't forget to take care.")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
