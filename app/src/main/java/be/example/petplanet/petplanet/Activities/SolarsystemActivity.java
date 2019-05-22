@@ -18,6 +18,7 @@ public class SolarsystemActivity extends AppCompatActivity {
     ImageView middlering;
     ImageView innerring;
     ImageView sun;
+    ImageButton user;
     Button planet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,15 @@ public class SolarsystemActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent;
                 intent = new Intent(SolarsystemActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        user = (ImageButton) findViewById(R.id.user);
+        user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(SolarsystemActivity.this, ProfileActivity.class);
                 startActivity(intent);
             }
         });
