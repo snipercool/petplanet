@@ -2,7 +2,6 @@ package be.example.petplanet.petplanet.Activities;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -12,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
+
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,8 +23,6 @@ import java.util.Arrays;
 import be.example.petplanet.petplanet.R;
 
 import android.app.NotificationManager;
-import android.app.NotificationChannel;
-import android.app.PendingIntent;
 import android.support.v4.app.NotificationCompat;
 
 import android.view.View;
@@ -127,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                intent = new Intent(MainActivity.this, StatsActivity.class);
+                intent = new Intent(MainActivity.this, LeaderboardActivity.class);
                 startActivity(intent);
             }
         });

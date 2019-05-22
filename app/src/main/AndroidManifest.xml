@@ -29,10 +29,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.ProfileActivity">
+        <activity android:name=".Activities.SolarsystemActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Activities.SolarsystemActivity">
+        <activity android:name=".Activities.ProfileActivity"
+            android:screenOrientation="portrait">>
         </activity>
+        <activity android:name=".Activities.LeaderboardActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".Activities.StatsActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
 
 
     </application>
