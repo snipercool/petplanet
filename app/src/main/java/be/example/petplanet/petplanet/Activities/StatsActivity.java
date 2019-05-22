@@ -57,6 +57,14 @@ public class StatsActivity extends AppCompatActivity {
         mTemperatureDatabaseReference = mSensorsDatabaseReference.child("temperature");
 
         GraphView graph = findViewById(R.id.graph_temperature);
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(7);
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setMaxY(40);
+
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setXAxisBoundsManual(true);
+
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
                 new DataPoint(0, 1),
                 new DataPoint(1, 5),
