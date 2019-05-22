@@ -1,6 +1,7 @@
 package be.example.petplanet.petplanet.Activities;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,12 +14,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-//Graph
+import com.google.firebase.database.ValueEventListener;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.util.List;
+
 import be.example.petplanet.petplanet.R;
+
+import static java.lang.Float.parseFloat;
+
+//Graph
 
 public class StatsActivity extends AppCompatActivity {
 
@@ -49,57 +56,54 @@ public class StatsActivity extends AppCompatActivity {
         mSensorsDatabaseReference = mFirebaseDatabase.getReference().child("sensors");
         mTemperatureDatabaseReference = mSensorsDatabaseReference.child("temperature");
 
-        attachDatabaseReadListener();
+        GraphView graph = findViewById(R.id.graph_temperature);
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(1, 5),
+                new DataPoint(2, 3),
+                new DataPoint(3, 2),
+                new DataPoint(4, 6)
+        });
+        graph.addSeries(series);
 
+        mTemperatureDatabaseReference.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                TemperatureClass temperature = new TemperatureClass();
+                for (DataSnapshot temperatureSnapshot: dataSnapshot.getChildren()) {
+                    //TODO: try & catch van for-loop maken
+                    String value = temperatureSnapshot.getValue().toString();
+                    temperature.addTemperatureToArray(value);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void displayTemperature(TemperatureClass temperature){
         //Graph
         GraphView graph = findViewById(R.id.graph_temperature);
-        seriesTemperature = new LineGraphSeries();
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(7);
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setMaxY(40);
 
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setXAxisBoundsManual(true);
+
+        List<Integer> allTemperatures = temperature.getTemperatures();
         try {
-            LineGraphSeries < DataPoint > series = new LineGraphSeries < > (new DataPoint[] {
-                    new DataPoint(0, 1),
-                    new DataPoint(1, 5),
-                    new DataPoint(2, 3),
-                    new DataPoint(3, 2),
-                    new DataPoint(4, 6)
-            });
+            LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+            for (int i = 0; i < allTemperatures.size(); i++) {
+                new DataPoint(i, allTemperatures.get(i));
+            }
             graph.addSeries(series);
         } catch (IllegalArgumentException e) {
             Toast.makeText(StatsActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    //Method to listen to database
-    private void attachDatabaseReadListener() {
-        //Temperature
-        if(mTemperatureChildEventListener == null){
-            mTemperatureChildEventListener = new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    DataPoint [] dp = new DataPoint[(int) dataSnapshot.getChildrenCount()];
-                    int index = 0;
-
-                    for(DataSnapshot myDataSnaphot : dataSnapshot.getChildren()){
-                        TemperatureClass temperature = myDataSnaphot.getValue(TemperatureClass.class);
-                        //dp[index] = new DataPoint(temperature.getTemperature(), temperature.getDate());
-                        index++;
-                    }
-                    //series.resetData(dp);
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {}
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {}
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {}
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {}
-            };
-            mTemperatureDatabaseReference.addChildEventListener(mTemperatureChildEventListener);
         }
     }
 }
