@@ -1,34 +1,20 @@
 {
   "project_info": {
-<<<<<<< HEAD
-    "project_number": "414299369393",
-    "firebase_url": "https://petplanet-a860a.firebaseio.com",
-    "project_id": "petplanet-a860a",
-    "storage_bucket": "petplanet-a860a.appspot.com"
-=======
     "project_number": "409998841528",
     "firebase_url": "https://petplanet-63aa0.firebaseio.com",
     "project_id": "petplanet-63aa0",
     "storage_bucket": "petplanet-63aa0.appspot.com"
->>>>>>> 6a309a90c5a40c8e821bc0f958cbe9110eedfefa
   },
   "client": [
     {
       "client_info": {
-<<<<<<< HEAD
-        "mobilesdk_app_id": "1:414299369393:android:44f890a2f64a176a",
-=======
         "mobilesdk_app_id": "1:409998841528:android:44f890a2f64a176a",
->>>>>>> 6a309a90c5a40c8e821bc0f958cbe9110eedfefa
         "android_client_info": {
           "package_name": "be.example.petplanet.petplanet"
         }
       },
       "oauth_client": [
         {
-<<<<<<< HEAD
-          "client_id": "414299369393-sktuot923pi440bh90ndkrl1rqfev9vm.apps.googleusercontent.com",
-=======
           "client_id": "409998841528-f0hi128hqn39ujju2ikdppqord5ji4p8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -38,28 +24,19 @@
         },
         {
           "client_id": "409998841528-mj60la08nal9ms76nd1oqraiht44dvfd.apps.googleusercontent.com",
->>>>>>> 6a309a90c5a40c8e821bc0f958cbe9110eedfefa
           "client_type": 3
         }
       ],
       "api_key": [
         {
-<<<<<<< HEAD
-          "current_key": "AIzaSyBb029BMr5irq7xbWVSbIgy4D0L18L8vb0"
-=======
           "current_key": "AIzaSyAD33Lu0LwHLbO8QkLcnhCJYg0OtPD-M9M"
->>>>>>> 6a309a90c5a40c8e821bc0f958cbe9110eedfefa
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-<<<<<<< HEAD
-              "client_id": "414299369393-sktuot923pi440bh90ndkrl1rqfev9vm.apps.googleusercontent.com",
-=======
               "client_id": "409998841528-mj60la08nal9ms76nd1oqraiht44dvfd.apps.googleusercontent.com",
->>>>>>> 6a309a90c5a40c8e821bc0f958cbe9110eedfefa
               "client_type": 3
             }
           ]

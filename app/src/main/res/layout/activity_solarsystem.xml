@@ -1,6 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/outerring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        app:srcCompat="@drawable/outerring"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints"/>
+
+    <ImageView
+        android:id="@+id/middlering"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="75dp"
+        app:srcCompat="@drawable/middlering"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints"/>
+
+    <ImageView
+        android:id="@+id/innerring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="126dp"
+        app:srcCompat="@drawable/innerring"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints"
+        android:orientation="vertical"/>
+
+    <ImageView
+        android:id="@+id/sun"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/innerring"
+        app:layout_constraintEnd_toEndOf="@+id/innerring"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="@+id/innerring"
+        app:layout_constraintTop_toTopOf="@+id/innerring"
+        app:layout_constraintVertical_bias="0.505"
+        app:srcCompat="@drawable/sun"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/planet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="62dp"
+        android:text="Go to planet"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@+id/innerring"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 </android.support.constraint.ConstraintLayout>

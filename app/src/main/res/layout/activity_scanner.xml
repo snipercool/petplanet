@@ -5,7 +5,8 @@
     android:id="@+id/ativity_scanner"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.ScannerActivity">
+    tools:context=".Activities.ScannerActivity"
+    android:orientation="vertical">
 
     <SurfaceView
         android:id="@+id/CameraPreview"
@@ -27,17 +28,17 @@
         android:text="Go Back"
         android:textColor="#003759" />
 
-    <Button
-        android:id="@+id/test"
+    <TextView
+        android:id="@+id/TxtResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="#003759"
-        android:layout_alignParentTop="true"
-        android:text="Alert"/>
+        android:layout_below="@+id/back"
+        android:text=" " />
+
 </RelativeLayout>
 
 

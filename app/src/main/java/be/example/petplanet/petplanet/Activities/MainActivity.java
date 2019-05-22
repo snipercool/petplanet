@@ -29,8 +29,11 @@ import android.app.PendingIntent;
 import android.support.v4.app.NotificationCompat;
 
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 //Authenticatie code voor gebruiker
 
@@ -63,9 +66,11 @@ public class MainActivity extends AppCompatActivity {
     private NotificationManagerCompat notificationManager;
 
     Button signout;
+    ImageView anim;
     ImageButton planet;
     ImageButton graphs;
     ImageButton qrcode;
+    ImageButton leaderbord;
     private Intent MainActivity;
 
     @Override
@@ -91,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // planet for animation
+        anim = findViewById(R.id.animation);
+        Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate);
+        anim.startAnimation(animation);
         // go to qrcode
         qrcode = (ImageButton) findViewById(R.id.qrcode);
         qrcode.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +114,16 @@ public class MainActivity extends AppCompatActivity {
         // go to grafieken
         graphs = (ImageButton) findViewById(R.id.graphs);
         graphs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(MainActivity.this, StatsActivity.class);
+                startActivity(intent);
+            }
+        });
+        // go to grafieken
+        leaderbord = (ImageButton) findViewById(R.id.leader);
+        leaderbord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent;
@@ -156,15 +175,6 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
 
         //Test tot optimalisatie homescreen
-        Button btn_notification = findViewById(R.id.btn_notification);
-
-        //Start functie bij klik
-        btn_notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addNotification();
-            }
-        });
     }
 
     // Menu

@@ -2,10 +2,12 @@ package be.example.petplanet.petplanet.Activities;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -22,8 +24,8 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+//import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -40,8 +42,8 @@ public class ScannerActivity extends AppCompatActivity {
     CameraSource CameraSource;
     final int RequestCameraPermissionID =1001;
 
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mUniqueReference;
+    //private FirebaseDatabase mFirebaseDatabase;
+    //private DatabaseReference mUniqueReference;
 
 
 
@@ -83,26 +85,26 @@ public class ScannerActivity extends AppCompatActivity {
             }
         });
 
-        CameraPreview = (SurfaceView)findViewById(R.id.CameraPreview);
+        CameraPreview = (SurfaceView) findViewById(R.id.CameraPreview);
         BarcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE)
                 .build();
         CameraSource = new CameraSource
-                .Builder(this,BarcodeDetector)
+                .Builder(this, BarcodeDetector)
                 .setAutoFocusEnabled(true)
                 .setRequestedPreviewSize(900, 900)
                 .build();
         CameraPreview.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(ScannerActivity.this, new String[]{Manifest.permission.CAMERA}, RequestCameraPermissionID);
                     return;
                 }
                 try {
                     CameraSource.start(CameraPreview.getHolder());
                     CameraPreview.findFocus();
-                }catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
 
@@ -127,73 +129,21 @@ public class ScannerActivity extends AppCompatActivity {
 
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
-                mFirebaseDatabase = FirebaseDatabase.getInstance();
-
 
                 final SparseArray<Barcode> qrcodes = detections.getDetectedItems();
-                if (qrcodes.size() != 0){
-                    qrcodes.valueAt(0);
-                    AlertDialog.Builder status = new AlertDialog.Builder(ScannerActivity.this, R.style.alertbox);
-                    status.setMessage("")
-                            .setCancelable(false)
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(ScannerActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                }
-                            });
-                    AlertDialog winnerstatus = status.create();
-                    winnerstatus.setTitle("Your score has been added to your planet");
-                    winnerstatus.show();
+                if (qrcodes.size() != 0) {
+                    TextResult.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            TextResult.setText(qrcodes.valueAt(0).displayValue);
+                            Dialog d = new Dialog(ScannerActivity.this);
+                            d.setTitle(qrcodes.valueAt(0).displayValue);
+                            d.show();
+                        }
+                    });
                 }
             }
         });
 
-        Button mainBtn = (Button) findViewById(R.id.test);
-        mainBtn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                onButtonClickListener(v);
-            }
-        });
-    }
-
-    private void onButtonClickListener(View view) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScannerActivity.this, R.style.AppTheme);
-
-        alertDialogBuilder.setTitle(this.getTitle()+ " decision");
-        alertDialogBuilder.setMessage("Are you sure?");
-        // set positive button: Yes message
-        alertDialogBuilder.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int id) {
-                // go to a new activity of the app
-                Intent positveActivity = new Intent(getApplicationContext(),
-                        MainActivity.class);
-                startActivity(positveActivity);
-            }
-        });
-        // set negative button: No message
-        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int id) {
-                // cancel the alert box and put a Toast to the user
-                dialog.cancel();
-                Toast.makeText(getApplicationContext(), "You chose a negative answer",
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-        // set neutral button: Exit the app message
-        alertDialogBuilder.setNeutralButton("Exit the app",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int id) {
-                // exit the app and go to the HOME
-                ScannerActivity.this.finish();
-            }
-        });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        // show alert
-        alertDialog.show();
     }
 }
