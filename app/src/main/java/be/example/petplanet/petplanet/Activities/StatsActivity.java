@@ -1,11 +1,14 @@
 package be.example.petplanet.petplanet.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -34,6 +37,10 @@ public class StatsActivity extends AppCompatActivity {
     private DatabaseReference mSensorsDatabaseReference;
     private DatabaseReference mTemperatureDatabaseReference;
 
+    ImageButton planet;
+    ImageButton graphs;
+    ImageButton qrcode;
+
     //Listener
     private ChildEventListener mTemperatureChildEventListener;
 
@@ -46,11 +53,38 @@ public class StatsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
 
-        //Menu
-        Button btn_menu_planet = findViewById(R.id.btn_menu_planet);
-        Button btn_menu_camera = findViewById(R.id.btn_menu_camera);
-        Button btn_menu_stats = findViewById(R.id.btn_menu_graphic);
 
+        // go to zonnestelsel
+        planet = (ImageButton) findViewById(R.id.planet);
+        planet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(StatsActivity.this, SolarsystemActivity.class);
+                startActivity(intent);
+            }
+        });
+        // go to qrcode
+        qrcode = (ImageButton) findViewById(R.id.qrcode);
+        qrcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(StatsActivity.this, ScannerActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // go to grafieken
+        graphs = (ImageButton) findViewById(R.id.graphs);
+        graphs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(StatsActivity.this, StatsActivity.class);
+                startActivity(intent);
+            }
+        });
         //Firebase - initializeren van algemene variabelen.
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mSensorsDatabaseReference = mFirebaseDatabase.getReference().child("sensors");
