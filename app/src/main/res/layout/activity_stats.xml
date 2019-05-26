@@ -1,68 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gv_stats"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.StatsActivity">
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    android:padding="20dp">
 
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph_temperature"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
 
-    <ImageButton
-        android:id="@+id/qrcode"
-        android:layout_width="123dp"
-        android:layout_height="88dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#00FFFFFF"
-        android:scaleType="fitCenter"
-        app:layout_constrainedHeight="false"
-        app:layout_constrainedWidth="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/qr" />
-    <ImageButton
-        android:id="@+id/planet"
-        android:layout_width="103dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="13dp"
-        android:backgroundTint="#00FFFFFF"
-        android:scaleType="fitCenter"
-        app:layout_constrainedHeight="false"
-        app:layout_constrainedWidth="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/qrcode"
-        app:layout_constraintHorizontal_bias="0.205"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/planet" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:foregroundGravity="center_vertical"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
 
-    <ImageButton
-        android:id="@+id/graphs"
-        android:layout_width="103dp"
-        android:layout_height="73dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="13dp"
-        android:backgroundTint="#00FFFFFF"
-        android:scaleType="fitCenter"
-        app:layout_constrainedHeight="false"
-        app:layout_constrainedWidth="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/qrcode"
-        app:srcCompat="@drawable/grahic" />
+        <ImageButton
+            android:id="@+id/btn_menu_planet"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/ib_desc_menu_planet"
+            android:background="@drawable/planet"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <com.jjoe64.graphview.GraphView
-                android:id="@+id/graph_temperature"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="32dp"/>
-
-        </RelativeLayout>
-
-</android.support.constraint.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/btn_menu_camera"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/ib_desc_menu_camera"
+            android:background="@drawable/qr"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"/>
+        <ImageButton
+            android:id="@+id/btn_menu_graphic"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/ib_desc_menu_graphic"
+            android:background="@drawable/grahic"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="20dp"/>
+    </LinearLayout>
+</RelativeLayout>

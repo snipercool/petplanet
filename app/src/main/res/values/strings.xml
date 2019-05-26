@@ -3,4 +3,7 @@
     <string name="scan_result">Scan qr code</string>
     <string name="menu_sign_out">Log out</string>
     <string name="txt_notification">Test the notification</string>
+    <string name="ib_desc_menu_planet">Menu icon of a planet</string>
+    <string name="ib_desc_menu_camera">Menu icon of a camera</string>
+    <string name="ib_desc_menu_graphic">Menu icon of a graphic chart</string>
 </resources>
