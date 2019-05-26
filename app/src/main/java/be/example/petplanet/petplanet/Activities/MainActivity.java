@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         anim = findViewById(R.id.animation);
         Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate);
         anim.startAnimation(animation);
+
         // go to qrcode
         qrcode = (ImageButton) findViewById(R.id.qrcode);
         qrcode.setOnClickListener(new View.OnClickListener() {
