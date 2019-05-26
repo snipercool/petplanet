@@ -32,7 +32,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity android:name=".Activities.ProfileActivity"
-            android:screenOrientation="portrait">>
+            android:screenOrientation="portrait">
         </activity>
         <activity android:name=".Activities.LeaderboardActivity"
             android:screenOrientation="portrait">
@@ -40,12 +40,6 @@
         <activity android:name=".Activities.StatsActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Activities.StatsActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-
-
     </application>
 
 </manifest>
