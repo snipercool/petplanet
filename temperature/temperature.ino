@@ -1,6 +1,7 @@
 #include <ArduinoJson.h>
 #include <FirebaseArduino.h>                                                // firebase library
 #include <ESP8266WiFi.h>                                                    // esp8266 library
+#include <ESP8266HTTPClient.h>
 #include <DHT.h>                                                            // dht11 temperature and humidity sensor library
 #include <WiFiUdp.h>
 #include <NTPClient.h>
@@ -23,6 +24,16 @@ char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursd
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds);
 
+//Weather outside
+const String LOCATION = "Mechelen,be";
+const String URL = "http://api.openweathermap.org/data/2.5/weather?q=";
+const String API_KEY_QUERY = "API_KEY";
+const String OPTIONS = "&mode=json&units=metric";
+
+const String FULL_URL = URL + LOCATION + API_KEY_QUERY + OPTIONS;
+
+float tempOutstide;
+
 void setup() {
   Serial.begin(9600);
   delay(1000);                
@@ -44,26 +55,60 @@ void setup() {
 }
 
 void loop() {
+  if (WiFi.status() == WL_CONNECTED) 
+  {
+    HTTPClient http; //Object of class HTTPClient
+    http.begin(FULL_URL); //Specify the URL and certificate.
+    int httpCode = http.GET();
+    Serial.print("Searching for API.");
+
+    /*
+      < 0 there is a connection error
+      > 0 api found
+    */
+    if (httpCode > 0) 
+    {
+      const size_t bufferSize = JSON_OBJECT_SIZE(2) + JSON_OBJECT_SIZE(3) + JSON_OBJECT_SIZE(5) + JSON_OBJECT_SIZE(8) + 370;
+      DynamicJsonBuffer jsonBuffer(bufferSize);
+      String jsonString = http.getString();
+
+      // FIND FIELDS IN JSON TREE
+      JsonObject& root = jsonBuffer.parseObject(jsonString);
+      JsonObject& main = root["main"];
+      if (!root.success()) {
+        Serial.println("parseObject() failed");
+        return;
+      }
+
+      //Getting and displaying the temperature
+      tempOutstide = main["temp"];
+      Serial.print("The temperature is: ");
+      Serial.println(tempOutstide);
+    }
+    else{
+      Serial.print("Error in HTTP request");
+    }
+    http.end(); //Close connection
+  }
+  
   //Daytime
   timeClient.update();
-  Serial.print(daysOfTheWeek[timeClient.getDay()]);
   
   float h = dht.readHumidity();                                              // Reading temperature or humidity takes about 250 milliseconds!
-  float t = dht.readTemperature();                                           // Read temperature as Celsius (the default)
+  float tempInside = dht.readTemperature();                                           // Read temperature as Celsius (the default)
     
-  if (isnan(h) || isnan(t)) {                                                // Check if any reads failed and exit early (to try again).
+  if (isnan(h) || isnan(tempInside)) {                                                // Check if any reads failed and exit early (to try again).
     Serial.println(F("Failed to read from DHT sensor!"));
     return;
   }
   
-  Serial.print("Humidity: ");  Serial.print(h);
-  String fireHumid = String(h) + String("%");                                         //convert integer humidity to string humidity 
-  Serial.print("%  Temperature: ");  Serial.print(t);  Serial.println(" °C ");
-  String fireTemp = String(t) + String(" °C");                                                     //convert integer temperature to string temperature
+  Serial.print("%  Temperature: ");  Serial.print(tempInside);  Serial.println(" °C ");
+  String fireTemp = String(tempInside) + String(" °C");                                                     //convert integer temperature to string temperature
   
   StaticJsonBuffer<200> jsonBuffer;
   JsonObject& root = jsonBuffer.createObject();
-  root["temperature"] = t;
+  root["temperatureOutstide"] = tempOutstide;
+  root["temperatureInside"] = tempInside;
   root["day"] = daysOfTheWeek[timeClient.getDay()];
   Firebase.push("/sensors/temperature", root);
   root.printTo(Serial);
