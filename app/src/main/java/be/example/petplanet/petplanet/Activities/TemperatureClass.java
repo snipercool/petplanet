@@ -1,34 +1,45 @@
 package be.example.petplanet.petplanet.Activities;
 
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class TemperatureClass {
-    private String date;
-    private float temperature;
+    private String day;
+    private float temperatureInside;
+    private float temperatureOutside;
 
     //Default onstructor
     public TemperatureClass(){
     }
 
-    public TemperatureClass(String date, float temperature) {
-        this.date = date;
-        this.temperature = temperature;
+    public TemperatureClass(String day, float temperatureInside, float temperatureOutside) {
+        this.day = day;
+        this.temperatureInside = temperatureInside;
+        this.temperatureOutside = temperatureOutside;
     }
 
-    public void setDate(String date){
-        this.date = date;
+    //Setters
+
+    public void setDay(String day){
+        this.day = day;
+    }
+
+    public void setTemperatureInside(float temperatureInside) {
+        this.temperatureInside = temperatureInside;
+    }
+
+    public void setTemperatureOutside(float temperatureOutside) {
+        this.temperatureOutside = temperatureOutside;
     }
 
     //Getters
 
-    public float getTemperature(){
-        return this.temperature;
+    public String getDay(){
+        return this.day;
     }
 
-    public String getDate(){
-        return this.date;
+    public float getTemperatureInside(){
+        return this.temperatureInside;
+    }
+
+    public float getTemperatureOutside() {
+        return this.temperatureOutside;
     }
 }

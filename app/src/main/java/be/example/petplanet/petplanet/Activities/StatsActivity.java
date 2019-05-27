@@ -6,6 +6,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -54,7 +55,8 @@ public class StatsActivity extends AppCompatActivity {
     private ChildEventListener mTemperatureChildEventListener;
 
     //Graph
-    LineGraphSeries seriesTemperature;
+    private LineGraphSeries seriesTemperatureInside;
+    private LineGraphSeries seriesTemperatureOutside;
 
 
     @Override
@@ -114,8 +116,11 @@ public class StatsActivity extends AppCompatActivity {
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setXAxisBoundsManual(true);
 
-        seriesTemperature = new LineGraphSeries();
-        graph.addSeries(seriesTemperature);
+        seriesTemperatureInside = new LineGraphSeries();
+        graph.addSeries(seriesTemperatureInside);
+
+        seriesTemperatureOutside = new LineGraphSeries();
+        graph.addSeries(seriesTemperatureOutside);
     }
 
     @Override
@@ -125,18 +130,21 @@ public class StatsActivity extends AppCompatActivity {
         mTemperatureDatabaseReference.addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                DataPoint[] dp = new DataPoint[(int) dataSnapshot.getChildrenCount()];
+                DataPoint[] dpTempInside = new DataPoint[(int) dataSnapshot.getChildrenCount()];
+                DataPoint[] dpTempOutside = new DataPoint[(int) dataSnapshot.getChildrenCount()];
                 int index = 0;
 
                 for(DataSnapshot tempDataSnapshot : dataSnapshot.getChildren()){
                     TemperatureClass temp = tempDataSnapshot.getValue(TemperatureClass.class);
-                    //Toast.makeText(StatsActivity.this, temp.getDate(), Toast.LENGTH_SHORT).show();
-                    //TODO: parse json to java object
-                    dp[index] = new DataPoint(index, temp.getTemperature());
+                    dpTempInside[index] = new DataPoint(index, temp.getTemperatureInside());
+                    dpTempOutside[index] =  new DataPoint(index, temp.getTemperatureOutside());
                     index++;
+
+                    Log.i("temperature", String.valueOf(temp.getTemperatureOutside()));
                 }
 
-                seriesTemperature.resetData(dp);
+                seriesTemperatureInside.resetData(dpTempInside);
+                seriesTemperatureOutside.resetData(dpTempOutside);
             }
 
             @Override
