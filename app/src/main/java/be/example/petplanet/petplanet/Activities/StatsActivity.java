@@ -1,6 +1,7 @@
 package be.example.petplanet.petplanet.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -24,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
+import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -107,20 +110,7 @@ public class StatsActivity extends AppCompatActivity {
         mSensorsDatabaseReference = mFirebaseDatabase.getReference().child("sensors");
         mTemperatureDatabaseReference = mSensorsDatabaseReference.child("temperature");
 
-        GraphView graph = findViewById(R.id.graph_temperature);
-        graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(7);
-        graph.getViewport().setMinY(0);
-        graph.getViewport().setMaxY(40);
-
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setXAxisBoundsManual(true);
-
-        seriesTemperatureInside = new LineGraphSeries();
-        graph.addSeries(seriesTemperatureInside);
-
-        seriesTemperatureOutside = new LineGraphSeries();
-        graph.addSeries(seriesTemperatureOutside);
+        displayGraph();
     }
 
     @Override
@@ -152,5 +142,51 @@ public class StatsActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void displayGraph(){
+        GraphView graph = findViewById(R.id.graph_temperature);
+
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(30);
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setMaxY(40);
+
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setXAxisBoundsManual(true);
+
+        seriesTemperatureInside = new LineGraphSeries();
+        graph.addSeries(seriesTemperatureInside);
+
+        seriesTemperatureOutside = new LineGraphSeries();
+        graph.addSeries(seriesTemperatureOutside);
+
+        //Title
+        graph.setTitle("Temperature");
+        graph.setTitleColor(Color.rgb(0, 55, 89));
+
+        //Labels
+        GridLabelRenderer gridLabel = graph.getGridLabelRenderer();
+        gridLabel.setHorizontalAxisTitle("Days");
+        gridLabel.setVerticalAxisTitle("Degree (°C)");
+
+        //Axis title
+        seriesTemperatureInside.setTitle("Inside");
+        seriesTemperatureOutside.setTitle("Outside");
+
+        //Legende
+        graph.getLegendRenderer().setVisible(true);
+        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+
+        //Style
+        seriesTemperatureInside.setColor(Color.rgb(0, 55, 89));
+        seriesTemperatureOutside.setColor(Color.rgb(0, 133, 119));
+        seriesTemperatureInside.setThickness(4);
+        seriesTemperatureOutside.setThickness(4);
+        seriesTemperatureInside.setDrawDataPoints(true);
+        seriesTemperatureOutside.setDrawDataPoints(true);
+
+        //Scroll + scalable
+        graph.getViewport().setScalable(true);
     }
 }
