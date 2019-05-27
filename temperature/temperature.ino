@@ -32,7 +32,7 @@ const String OPTIONS = "&mode=json&units=metric";
 
 const String FULL_URL = URL + LOCATION + API_KEY_QUERY + OPTIONS;
 
-float tempOutstide;
+float tempOutside;
 
 void setup() {
   Serial.begin(9600);
@@ -81,9 +81,9 @@ void loop() {
       }
 
       //Getting and displaying the temperature
-      tempOutstide = main["temp"];
+      tempOutside = main["temp"];
       Serial.print("The temperature is: ");
-      Serial.println(tempOutstide);
+      Serial.println(tempOutside);
     }
     else{
       Serial.print("Error in HTTP request");
@@ -107,7 +107,7 @@ void loop() {
   
   StaticJsonBuffer<200> jsonBuffer;
   JsonObject& root = jsonBuffer.createObject();
-  root["temperatureOutstide"] = tempOutstide;
+  root["temperatureOutside"] = tempOutside;
   root["temperatureInside"] = tempInside;
   root["day"] = daysOfTheWeek[timeClient.getDay()];
   Firebase.push("/sensors/temperature", root);
