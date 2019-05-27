@@ -6,27 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TemperatureClass {
-    private float temperature;
     private String date;
-
-    // Array
-    private List<Integer> temperatures = new ArrayList<>();
+    private float temperature;
 
     //Default onstructor
     public TemperatureClass(){
     }
 
-    public List<Integer> getTemperatures() {
-        return temperatures;
-    }
-
-    public void setTemperatures(List<Integer> temperatures) {
-        this.temperatures = temperatures;
-    }
-
-    //Setters
-
-    public void setTemperature(float temperature){
+    public TemperatureClass(String date, float temperature) {
+        this.date = date;
         this.temperature = temperature;
     }
 
@@ -37,16 +25,10 @@ public class TemperatureClass {
     //Getters
 
     public float getTemperature(){
-        return temperature;
+        return this.temperature;
     }
 
     public String getDate(){
-        return date;
-    }
-
-    public void addTemperatureToArray(String temperature){
-        float stringToFloar = Float.parseFloat(temperature);
-        int round = Math.round(stringToFloar);
-        temperatures.add(round);
+        return this.date;
     }
 }

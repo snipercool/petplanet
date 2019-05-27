@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.firebase.database.ValueEventListener;
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -30,6 +31,7 @@ import java.util.List;
 import be.example.petplanet.petplanet.R;
 
 import static java.lang.Float.parseFloat;
+import static java.lang.Float.toHexString;
 
 //Graph
 
@@ -112,24 +114,29 @@ public class StatsActivity extends AppCompatActivity {
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setXAxisBoundsManual(true);
 
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
-        graph.addSeries(series);
+        seriesTemperature = new LineGraphSeries();
+        graph.addSeries(seriesTemperature);
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
 
         mTemperatureDatabaseReference.addValueEventListener(new ValueEventListener(){
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                TemperatureClass temperature = new TemperatureClass();
-                for (DataSnapshot temperatureSnapshot: dataSnapshot.getChildren()) {
-                    //TODO: try & catch van for-loop maken
-                    String value = temperatureSnapshot.getValue().toString();
-                    temperature.addTemperatureToArray(value);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                DataPoint[] dp = new DataPoint[(int) dataSnapshot.getChildrenCount()];
+                int index = 0;
+
+                for(DataSnapshot tempDataSnapshot : dataSnapshot.getChildren()){
+                    TemperatureClass temp = tempDataSnapshot.getValue(TemperatureClass.class);
+                    //Toast.makeText(StatsActivity.this, temp.getDate(), Toast.LENGTH_SHORT).show();
+                    //TODO: parse json to java object
+                    dp[index] = new DataPoint(index, temp.getTemperature());
+                    index++;
                 }
+
+                seriesTemperature.resetData(dp);
             }
 
             @Override
@@ -137,28 +144,5 @@ public class StatsActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    public void displayTemperature(TemperatureClass temperature){
-        //Graph
-        GraphView graph = findViewById(R.id.graph_temperature);
-        graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(7);
-        graph.getViewport().setMinY(0);
-        graph.getViewport().setMaxY(40);
-
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setXAxisBoundsManual(true);
-
-        List<Integer> allTemperatures = temperature.getTemperatures();
-        try {
-            LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
-            for (int i = 0; i < allTemperatures.size(); i++) {
-                new DataPoint(i, allTemperatures.get(i));
-            }
-            graph.addSeries(series);
-        } catch (IllegalArgumentException e) {
-            Toast.makeText(StatsActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
     }
 }
