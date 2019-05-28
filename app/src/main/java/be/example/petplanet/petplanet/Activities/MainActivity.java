@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
     ImageButton graphs;
     ImageButton qrcode;
     ImageButton leaderbord;
-    private Intent MainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //signout
-        signout = (Button) findViewById(R.id.signout);
+        signout = findViewById(R.id.signout);
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // go to zonnestelsel
-        planet = (ImageButton) findViewById(R.id.planet);
+        planet = findViewById(R.id.planet);
         planet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         anim.startAnimation(animation);
 
         // go to qrcode
-        qrcode = (ImageButton) findViewById(R.id.qrcode);
+        qrcode = findViewById(R.id.qrcode);
         qrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // go to grafieken
-        graphs = (ImageButton) findViewById(R.id.graphs);
+        graphs = findViewById(R.id.graphs);
         graphs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // go to grafieken
-        leaderbord = (ImageButton) findViewById(R.id.leader);
+        leaderbord = findViewById(R.id.leader);
         leaderbord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
