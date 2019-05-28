@@ -1,7 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gv_stats"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageButton
+        android:id="@+id/ib_desc_btn_share"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/share"
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@string/ib_desc_btn_share"/>
+
+    <!--Info planeet-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:background="@drawable/whiteroundrectangle"
+        android:layout_marginTop="175dp"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:id="@+id/ll_planet_info_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="60dp">
+
+            <TextView
+                android:id="@+id/tv_planet_level"
+                android:text="@string/tv_planet_level"
+                android:textSize="20sp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"/>
+
+            <TextView
+                android:id="@+id/tv_planet_age"
+                android:text="@string/tv_planet_age"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_planet_info_health"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="80dp">
+
+            <TextView
+                android:id="@+id/tv_planet_title_health"
+                android:text="@string/tv_planet_title_health"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"/>
+
+            <TextView
+                android:id="@+id/tv_planet_health"
+                android:text="@string/tv_planet_health"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_planet_info_members"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="200dp">
+
+            <TextView
+                android:id="@+id/tv_planet_title_members"
+                android:text="@string/tv_planet_title_members"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/tv_planet_member1"
+                android:text="@string/tv_planet_member1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!--Info planeet-->
+    <FrameLayout
+        android:id="@+id/tv_planet_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_stats_planet"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:background="@drawable/planet_good_state_1" />
+
+        <TextView
+            android:id="@+id/tv_planet_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="@string/tv_planet_name"
+            android:textSize="30sp" />
+    </FrameLayout>
+
+    <!--Menu-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/btn_menu_planet"
+            android:layout_width="40dp"
+            android:layout_height="fill_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/planet"
+            android:contentDescription="@string/ib_desc_menu_planet" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/btn_menu_camera"
+            android:layout_width="40dp"
+            android:layout_height="fill_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/qr"
+            android:contentDescription="@string/ib_desc_menu_camera" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/btn_menu_graphic"
+            android:layout_width="40dp"
+            android:layout_height="fill_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/grahic"
+            android:contentDescription="@string/ib_desc_menu_graphic" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+</RelativeLayout>

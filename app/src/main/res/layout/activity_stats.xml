@@ -3,12 +3,11 @@
     android:id="@+id/gv_stats"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     android:orientation="vertical"
     android:padding="20dp">
 
     <!--Grafieken-->
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:background="@drawable/whiteroundrectangle"
@@ -20,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="100dp"/>
-    </LinearLayout>
+    </RelativeLayout>
 
     <!--Info planeet-->
     <FrameLayout

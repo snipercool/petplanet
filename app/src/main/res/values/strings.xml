@@ -6,9 +6,16 @@
 
     <!--Text Views-->
     <string name="tv_planet_name">Xander</string>
+    <string name="tv_planet_level">level 3</string>
+    <string name="tv_planet_age">3 months old</string>
+    <string name="tv_planet_title_health">Health:</string>
+    <string name="tv_planet_health">51/100</string>
+    <string name="tv_planet_title_members">Members:</string>
+    <string name="tv_planet_member1">John Graves</string>
 
     <!--Image Buttons-->
     <string name="ib_desc_menu_planet">Menu icon of a planet</string>
     <string name="ib_desc_menu_camera">Menu icon of a camera</string>
     <string name="ib_desc_menu_graphic">Menu icon of a graphic chart</string>
+    <string name="ib_desc_btn_share">Share button</string>
 </resources>
