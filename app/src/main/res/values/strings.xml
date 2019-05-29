@@ -4,6 +4,9 @@
     <string name="menu_sign_out">Log out</string>
     <string name="txt_notification">Test the notification</string>
 
+    <!--Buttons-->
+    <string name="btn_logout">Logout</string>
+
     <!--Text Views-->
     <string name="tv_planet_name">Xander</string>
     <string name="tv_planet_level">level 3</string>
@@ -18,4 +21,6 @@
     <string name="ib_desc_menu_camera">Menu icon of a camera</string>
     <string name="ib_desc_menu_graphic">Menu icon of a graphic chart</string>
     <string name="ib_desc_btn_share">Share button</string>
+    <string name="ib_desc_leaderboard">Icon of a trophy</string>
+
 </resources>

@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
     private NotificationManagerCompat notificationManager;
 
     Button signout;
-    ImageView anim;
+    ImageButton solarsystem;
+    ImageButton anim;
     ImageButton planet;
     ImageButton graphs;
     ImageButton qrcode;
@@ -74,6 +75,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //solarsystem
+        solarsystem = findViewById(R.id.ib_sun);
+        solarsystem.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v){
+               Intent intent;
+               intent = new Intent(MainActivity.this, SolarsystemActivity.class);
+               startActivity(intent);
+           }
+        });
+
         //signout
         signout = findViewById(R.id.signout);
         signout.setOnClickListener(new View.OnClickListener() {
@@ -82,8 +94,9 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
             }
         });
-        // go to zonnestelsel
-        planet = findViewById(R.id.planet);
+
+        // go to planet
+        planet = findViewById(R.id.btn_menu_planet);
         planet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,13 +105,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         // planet for animation
         anim = findViewById(R.id.animation);
         Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate);
         anim.startAnimation(animation);
 
         // go to qrcode
-        qrcode = findViewById(R.id.qrcode);
+        qrcode = findViewById(R.id.btn_menu_camera);
         qrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // go to grafieken
-        graphs = findViewById(R.id.graphs);
+        graphs = findViewById(R.id.btn_menu_graphic);
         graphs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,8 +132,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        // go to grafieken
-        leaderbord = findViewById(R.id.leader);
+
+        // go to trophy
+        leaderbord = findViewById(R.id.ib_btn_leaderboard);
         leaderbord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
