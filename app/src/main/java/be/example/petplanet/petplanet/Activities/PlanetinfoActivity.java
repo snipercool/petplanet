@@ -1,6 +1,7 @@
 package be.example.petplanet.petplanet.Activities;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -37,7 +38,7 @@ public class PlanetinfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                intent = new Intent(PlanetinfoActivity.this, SolarsystemActivity.class);
+                intent = new Intent(PlanetinfoActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

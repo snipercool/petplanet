@@ -78,7 +78,7 @@ public class StatsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                intent = new Intent(StatsActivity.this, SolarsystemActivity.class);
+                intent = new Intent(StatsActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
