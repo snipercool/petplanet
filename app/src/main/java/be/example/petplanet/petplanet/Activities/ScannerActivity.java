@@ -74,7 +74,7 @@ public class ScannerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
-
+        TextResult = findViewById(R.id.TxtResult);
         back = (Button) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,12 +136,15 @@ public class ScannerActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             TextResult.setText(qrcodes.valueAt(0).displayValue);
-                            Dialog d = new Dialog(ScannerActivity.this);
-                            d.setTitle(qrcodes.valueAt(0).displayValue);
-                            d.show();
+                            openDialog();
+
                         }
                     });
                 }
+            }
+            public void openDialog(){
+                scoreDialog ScoreDialog = new scoreDialog();
+                ScoreDialog.show(getSupportFragmentManager(), "Score");
             }
         });
 

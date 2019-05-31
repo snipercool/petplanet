@@ -31,6 +31,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 //Authenticatie code voor gebruiker
 
@@ -63,56 +64,44 @@ public class MainActivity extends AppCompatActivity {
     private NotificationManagerCompat notificationManager;
 
     Button signout;
-    ImageButton solarsystem;
-    ImageButton anim;
+    ImageView anim;
     ImageButton planet;
     ImageButton graphs;
     ImageButton qrcode;
     ImageButton leaderbord;
+    TextView scoring;
+    private Intent MainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //solarsystem
-        solarsystem = findViewById(R.id.ib_sun);
-        solarsystem.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v){
-               Intent intent;
-               intent = new Intent(MainActivity.this, SolarsystemActivity.class);
-               startActivity(intent);
-           }
-        });
-
+        scoring = (TextView) findViewById(R.id.score);
         //signout
-        signout = findViewById(R.id.signout);
+        signout = (Button) findViewById(R.id.signout);
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
             }
         });
-
-        // go to planet
-        planet = findViewById(R.id.btn_menu_planet);
+        // go to zonnestelsel
+        planet = (ImageButton) findViewById(R.id.planet);
         planet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                intent = new Intent(MainActivity.this, MainActivity.class);
+                intent = new Intent(MainActivity.this, SolarsystemActivity.class);
                 startActivity(intent);
             }
         });
-
         // planet for animation
         anim = findViewById(R.id.animation);
         Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate);
         anim.startAnimation(animation);
 
         // go to qrcode
-        qrcode = findViewById(R.id.btn_menu_camera);
+        qrcode = (ImageButton) findViewById(R.id.qrcode);
         qrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // go to grafieken
-        graphs = findViewById(R.id.btn_menu_graphic);
+        graphs = (ImageButton) findViewById(R.id.graphs);
         graphs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,9 +121,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        // go to trophy
-        leaderbord = findViewById(R.id.ib_btn_leaderboard);
+        // go to grafieken
+        leaderbord = (ImageButton) findViewById(R.id.leader);
         leaderbord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

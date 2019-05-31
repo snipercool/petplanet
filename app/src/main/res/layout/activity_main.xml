@@ -27,7 +27,7 @@
         android:padding="20dp">
 
         <ImageButton
-            android:id="@+id/ib_btn_leaderboard"
+            android:id="@+id/leader"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
@@ -45,20 +45,22 @@
             android:id="@+id/signout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:text="@string/btn_logout"
             android:layout_alignParentEnd="true"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="78dp"
+            android:text="@string/btn_logout"
+            android:textColor="@color/colorPrimaryDark" />
     </RelativeLayout>
     <!--TODO: niet verder dan hier verwijderen-->
 
     <ImageButton
         android:id="@+id/animation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="400dp"
+        android:layout_height="360dp"
+        android:layout_marginTop="170dp"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/planet_neutral"
-        android:gravity="center"
-        android:layout_marginTop="120dp"/>
+        android:gravity="center" />
 
 
     <!--Menu-->
@@ -76,8 +78,8 @@
             android:layout_weight="1" />
 
         <ImageButton
-            android:id="@+id/btn_menu_planet"
-            android:layout_width="40dp"
+            android:id="@+id/planet"
+            android:layout_width="30dp"
             android:layout_height="fill_parent"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="20dp"
@@ -91,8 +93,8 @@
             android:layout_weight="1" />
 
         <ImageButton
-            android:id="@+id/btn_menu_camera"
-            android:layout_width="40dp"
+            android:id="@+id/qrcode"
+            android:layout_width="30dp"
             android:layout_height="fill_parent"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -106,8 +108,8 @@
             android:layout_weight="1" />
 
         <ImageButton
-            android:id="@+id/btn_menu_graphic"
-            android:layout_width="40dp"
+            android:id="@+id/graphs"
+            android:layout_width="30dp"
             android:layout_height="fill_parent"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="10dp"
