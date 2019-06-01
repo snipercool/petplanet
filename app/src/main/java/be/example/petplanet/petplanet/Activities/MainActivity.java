@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
         //get score
         mPlanetReference = mFirebaseDatabase.getReference().child("planet");
-        mScoreReference = mPlanetReference.child("id").child("score");
+        mScoreReference = mPlanetReference.child("0").child("score");
 
 
 
@@ -191,7 +191,8 @@ public class MainActivity extends AppCompatActivity {
         mScoreReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String score = dataSnapshot.child("planet").child("planetId").getValue(String.class);
+                String score = dataSnapshot.getValue(String.class);
+                Log.i("score", String.valueOf(score));
                 scoring.setText("Score= "+ score);
 
             }
