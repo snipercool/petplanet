@@ -9,14 +9,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 import java.util.Arrays;
 
@@ -46,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mUniqueReference;
+    private DatabaseReference mPlanetReference;
+    private DatabaseReference mScoreReference;
 
     // Firebase - authentication
 
@@ -140,8 +147,19 @@ public class MainActivity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
+        // Firebase - initializeren van referentie.
+
+        mUniqueReference = mFirebaseDatabase.getReference();
+
         //Notification
         notificationManager = NotificationManagerCompat.from(this);
+
+        //get score
+        mPlanetReference = mFirebaseDatabase.getReference().child("planet");
+        mScoreReference = mPlanetReference.child("id").child("score");
+
+
+
 
         // Inloggen
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -170,12 +188,27 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+        mScoreReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String score = dataSnapshot.child("planet").child("planetId").getValue(String.class);
+                scoring.setText("Score= "+ score);
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         createNotificationChannel();
 
         //Test tot optimalisatie homescreen
     }
+
+
+
 
     // Menu
 

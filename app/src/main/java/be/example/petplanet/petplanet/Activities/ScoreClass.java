@@ -1,7 +1,7 @@
 package be.example.petplanet.petplanet.Activities;
 
 public class ScoreClass {
-    private int score;
+    private int scoring;
 
     //Default constructor
 
@@ -12,12 +12,14 @@ public class ScoreClass {
     //Setters
 
     public void setScore(int score){
-        this.score = score;
+
+        this.scoring = score;
     }
 
     //Getters
 
     public int getScore(){
-        return score;
+
+        return scoring;
     }
 }

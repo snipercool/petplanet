@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "409998841528-8jefg9dtmchi70brkdsi9neqab5mkrth.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "be.example.petplanet.petplanet",
+            "certificate_hash": "ea8da58a418a4f8cf1b88b67d29c6d4e7e8f47d4"
+          }
+        },
+        {
           "client_id": "409998841528-f0hi128hqn39ujju2ikdppqord5ji4p8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
