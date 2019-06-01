@@ -13,6 +13,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.Arrays;
+import java.util.Date;
 
 import be.example.petplanet.petplanet.R;
 
@@ -68,7 +74,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String CHANNEL_1_ID = "channel1";
     public static final String CHANNEL_2_ID = "channel2";
     public static final String CHANNEL_3_ID = "channel3";
+    public static final String CHANNEL_4_ID = "channel4";
+    public static final String CHANNEL_5_ID = "channel5";
     private NotificationManagerCompat notificationManager;
+
 
     Button signout;
     ImageView anim;
@@ -104,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         });
         // planet for animation
         anim = findViewById(R.id.animation);
+        anim.setImageResource(R.drawable.planet_neutral);
         Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate);
         anim.startAnimation(animation);
 
@@ -138,6 +148,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //time notification
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        dateFormat.format(date);
+        try {
+            if (dateFormat.parse(dateFormat.format(date)).after(dateFormat.parse("18:39"))){
+                addNotification();
+
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 
         // Firebase - initializeren van algemene variabelen.
 
@@ -262,9 +286,9 @@ public class MainActivity extends AppCompatActivity {
     private void addNotification() {
 
         /*Pas volgende code aan volgens de score die bepaald is bij user story 3!!!*/
-        score = 52;
 
-        //Planeet = slecht
+
+        //Planeet = slechter
         if (score <= 0) {
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
                 .setSmallIcon(R.mipmap.ic_launcher_round)
@@ -274,11 +298,26 @@ public class MainActivity extends AppCompatActivity {
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setAutoCancel(true)
                 .build();
- 
+
+
+            anim.setImageResource(R.drawable.planet_bad_state_2);
             notificationManager.notify(1, notification);
         }
+        //Planeet slecht
+        else if (score > 20 & score <= 40) {
+            Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
+                    .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setContentTitle("Your planet can be better")
+                    .setContentText("Dan't forget your planet should be getting better not worse.")
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                    .setAutoCancel(true)
+                    .build();
+
+            notificationManager.notify(2, notification);
+        }
         //Planeet = ok
-        else if (score > 0 & score <= 50) {
+        else if (score > 40 & score <= 60) {
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
                 .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setContentTitle("Everything is going okay.")
@@ -288,20 +327,33 @@ public class MainActivity extends AppCompatActivity {
                 .setAutoCancel(true)
                 .build();
 
-            notificationManager.notify(2, notification);
+            notificationManager.notify(3, notification);
         }
         //Planeet = goed
+        else if (score > 60 & score <= 80) {
+            Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
+                    .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setContentTitle("Everything is going great.")
+                    .setContentText("Be sure you stay on your good course.")
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                    .setAutoCancel(true)
+                    .build();
+
+            notificationManager.notify(4, notification);
+        }
+        //Planeet = best
         else {
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_3_ID)
                 .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setContentTitle("Your planet is full of hapiness.")
-                .setContentText("Nothing went wrong nor good yet don't forget to take care.")
+                .setContentText("Be sure you stay on your good course.")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setAutoCancel(true)
                 .build();
 
-            notificationManager.notify(3, notification);
+            notificationManager.notify(5, notification);
         }
     }
 
@@ -326,12 +378,26 @@ public class MainActivity extends AppCompatActivity {
                     "Channel 3",
                     NotificationManager.IMPORTANCE_HIGH
             );
-            channel2.setDescription("This is Channel 3");
+            channel3.setDescription("This is Channel 4");
+            NotificationChannel channel4 = new NotificationChannel(
+                    CHANNEL_4_ID,
+                    "Channel 4",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            channel4.setDescription("This is Channel 4");
+            NotificationChannel channel5 = new NotificationChannel(
+                    CHANNEL_5_ID,
+                    "Channel 5",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            channel5.setDescription("This is Channel 5");
  
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel1);
             manager.createNotificationChannel(channel2);
             manager.createNotificationChannel(channel3);
+            manager.createNotificationChannel(channel4);
+            manager.createNotificationChannel(channel5);
         }
     }
 }
