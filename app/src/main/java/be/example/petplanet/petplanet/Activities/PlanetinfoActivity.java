@@ -3,12 +3,20 @@ package be.example.petplanet.petplanet.Activities;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import be.example.petplanet.petplanet.R;
 
@@ -21,6 +29,17 @@ public class PlanetinfoActivity extends AppCompatActivity {
     private ImageButton stats;
     private ImageButton camera;
     private ImageButton share;
+
+    //Textview
+    private TextView tv_score;
+
+    //Firebase
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mPlanetReference;
+    private DatabaseReference mScoreReference;
+
+    // Score
+    private int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +94,29 @@ public class PlanetinfoActivity extends AppCompatActivity {
 
                 //intent.putExtra(Intent.EXTRA_TEXT, text);
                 startActivity(Intent.createChooser(intent, "Share your planet"));
+            }
+        });
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mPlanetReference = mFirebaseDatabase.getReference().child("planet");
+        mScoreReference = mPlanetReference.child("0").child("score");
+
+        tv_score = findViewById(R.id.tv_planet_health);
+    }
+
+    protected void onStart(){
+        super.onStart();
+
+        mScoreReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String strScore = dataSnapshot.getValue().toString();
+                tv_score.setText(strScore);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }
