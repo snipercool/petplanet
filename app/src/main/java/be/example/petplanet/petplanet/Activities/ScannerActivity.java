@@ -216,7 +216,12 @@ public class ScannerActivity extends AppCompatActivity {
         });
 
         try{
-            currentValue -= score;
+            if(score < 25){
+                currentValue += score;
+            }
+            else if(score >= 25) {
+                currentValue -= score;
+            }
             mScoreReference.setValue(currentValue);
         }
         catch(NullPointerException npe){

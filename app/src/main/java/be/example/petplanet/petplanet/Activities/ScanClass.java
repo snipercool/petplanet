@@ -163,11 +163,11 @@ public class ScanClass {
         }
 
         /*
-        * Division of 4 due to a too strong qr code.
-        * And 40 as to make it not a too strong of change in the score of the planet.
+        * Division of 8 due to a too strong qr code.
         * */
 
-        score /= 40;
+        score /= 8;
+        Log.i("score", String.valueOf(score));
         return score;
     }
 }
