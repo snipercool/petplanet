@@ -216,10 +216,8 @@ public class MainActivity extends AppCompatActivity {
         mScoreReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String score = dataSnapshot.getValue(String.class);
-                Log.i("score", String.valueOf(score));
+                String score = dataSnapshot.getValue().toString();
                 scoring.setText("Score= "+ score);
-
             }
 
             @Override

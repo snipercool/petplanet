@@ -129,8 +129,6 @@ public class StatsActivity extends AppCompatActivity {
                     dpTempInside[index] = new DataPoint(index, temp.getTemperatureInside());
                     dpTempOutside[index] =  new DataPoint(index, temp.getTemperatureOutside());
                     index++;
-
-                    Log.i("temperature", String.valueOf(temp.getTemperatureOutside()));
                 }
 
                 seriesTemperatureInside.resetData(dpTempInside);
