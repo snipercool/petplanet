@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
     ImageButton qrcode;
     ImageButton leaderbord;
     TextView scoring;
-    private Intent MainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,9 +182,6 @@ public class MainActivity extends AppCompatActivity {
         mPlanetReference = mFirebaseDatabase.getReference().child("planet");
         mScoreReference = mPlanetReference.child("0").child("score");
 
-
-
-
         // Inloggen
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -213,11 +209,46 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
+        createNotificationChannel();
+
+        //Test tot optimalisatie homescreen
+    }
+
+    protected void onStart(){
+        super.onStart();
+
+
         mScoreReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String score = dataSnapshot.getValue().toString();
-                scoring.setText("Score= "+ score);
+                String strScore = dataSnapshot.getValue().toString();
+                scoring.setText("Score= "+ strScore);
+
+                score = Integer.valueOf(strScore);
+
+                // planet = very bad
+                if (score <= 0) {
+                    anim.setImageResource(R.drawable.planet_bad_state_2);
+                }
+                // planet = bad
+                else if (score > 0 && score < 50) {
+                    anim.setImageResource(R.drawable.planet_bad_state_1);
+                }
+                // planet = ok
+                else if (score >= 50 & score < 100) {
+                    anim.setImageResource(R.drawable.planet_neutral);
+                }
+                // planet = good
+                else if (score >= 100 & score < 150) {
+                    anim.setImageResource(R.drawable.planet_good_state_1);
+                }
+                // planet = very good
+                else {
+                    anim.setImageResource(R.drawable.planet_good_state_2);
+                }
+
+                addNotification();
             }
 
             @Override
@@ -225,13 +256,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        createNotificationChannel();
-
-        //Test tot optimalisatie homescreen
     }
-
-
 
 
     // Menu
@@ -281,13 +306,10 @@ public class MainActivity extends AppCompatActivity {
         mUsername = ANONYMOUS;
     }
 
-    // Notificatie
+    // Notification
     private void addNotification() {
 
-        /*Pas volgende code aan volgens de score die bepaald is bij user story 3!!!*/
-
-
-        //Planeet = slechter
+        // planet = very bad
         if (score <= 0) {
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
                 .setSmallIcon(R.mipmap.ic_launcher_round)
@@ -298,12 +320,10 @@ public class MainActivity extends AppCompatActivity {
                 .setAutoCancel(true)
                 .build();
 
-
-            anim.setImageResource(R.drawable.planet_bad_state_2);
             notificationManager.notify(1, notification);
         }
-        //Planeet slecht
-        else if (score > 20 & score <= 40) {
+        // planet = bad
+        else if (score > 0 && score < 50) {
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
                     .setSmallIcon(R.mipmap.ic_launcher_round)
                     .setContentTitle("Your planet can be better")
@@ -315,8 +335,8 @@ public class MainActivity extends AppCompatActivity {
 
             notificationManager.notify(2, notification);
         }
-        //Planeet = ok
-        else if (score > 40 & score <= 60) {
+        // planet = ok
+        else if (score >= 50 & score < 100) {
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
                 .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setContentTitle("Everything is going okay.")
@@ -328,8 +348,8 @@ public class MainActivity extends AppCompatActivity {
 
             notificationManager.notify(3, notification);
         }
-        //Planeet = goed
-        else if (score > 60 & score <= 80) {
+        // planet = good
+        else if (score >= 100 & score < 150) {
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
                     .setSmallIcon(R.mipmap.ic_launcher_round)
                     .setContentTitle("Everything is going great.")
@@ -341,7 +361,7 @@ public class MainActivity extends AppCompatActivity {
 
             notificationManager.notify(4, notification);
         }
-        //Planeet = best
+        // planet = very good
         else {
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_3_ID)
                 .setSmallIcon(R.mipmap.ic_launcher_round)
