@@ -156,7 +156,7 @@ public class ScannerActivity extends AppCompatActivity {
                     TextResult.post(new Runnable() {
                         @Override
                         public void run() {
-                            TextResult.setText(qrcodes.valueAt(0).displayValue);
+                            TextResult.setText("");
                             resultsQr.add(qrcodes.valueAt(0).displayValue);
 
                             /*
