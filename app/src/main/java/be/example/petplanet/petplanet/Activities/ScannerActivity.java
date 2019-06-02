@@ -11,6 +11,7 @@ import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -23,11 +24,19 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 //import com.google.firebase.database.DatabaseReference;
 //import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import be.example.petplanet.petplanet.R;
@@ -36,20 +45,23 @@ import be.example.petplanet.petplanet.R;
 
 public class ScannerActivity extends AppCompatActivity {
 
-    SurfaceView CameraPreview;
-    TextView TextResult;
-    BarcodeDetector BarcodeDetector;
-    CameraSource CameraSource;
-    final int RequestCameraPermissionID =1001;
+    private SurfaceView CameraPreview;
+    private TextView TextResult;
+    private BarcodeDetector BarcodeDetector;
+    private CameraSource CameraSource;
+    private final int RequestCameraPermissionID = 1001;
 
-    //private FirebaseDatabase mFirebaseDatabase;
-    //private DatabaseReference mUniqueReference;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mProductsReference;
+    private DatabaseReference mScoreReference;
 
+    private Button back;
 
+    private List<Object> resultsQr = new ArrayList<>();
+    private List<Object> productList = new ArrayList<>();
 
-    Button back;
-
-
+    private Integer score;
+    private Integer currentValue;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -74,6 +86,15 @@ public class ScannerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
+
+        // Products
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mProductsReference = mFirebaseDatabase.getReference().child("products");
+        mScoreReference = mFirebaseDatabase.getReference().child("planet").child("0").child("score");
+
+        // Scanner
+
         TextResult = findViewById(R.id.TxtResult);
         back = (Button) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -136,8 +157,15 @@ public class ScannerActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             TextResult.setText(qrcodes.valueAt(0).displayValue);
-                            openDialog();
+                            resultsQr.add(qrcodes.valueAt(0).displayValue);
 
+                            /*
+                            * Calculate score
+                            * */
+                            ScanClass scan = new ScanClass(productList, resultsQr);
+                            score = scan.initiate();
+                            changeScore();
+                            openDialog();
                         }
                     });
                 }
@@ -148,5 +176,51 @@ public class ScannerActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    protected void onStart(){
+        super.onStart();
+
+        // Get data of database
+
+        mProductsReference.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    // add result into array list
+                    productList.add(ds.getValue());
+                }
+                ProductsClass products = new ProductsClass(productList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void changeScore(){
+        mScoreReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue().toString();
+                currentValue = Integer.parseInt(value);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        try{
+            currentValue -= score;
+            mScoreReference.setValue(currentValue);
+        }
+        catch(NullPointerException npe){
+            npe.printStackTrace();
+        }
     }
 }
