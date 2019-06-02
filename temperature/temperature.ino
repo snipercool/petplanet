@@ -103,7 +103,7 @@ void loop() {
     return;
   }
   
-  Serial.print("%  Temperature: ");  Serial.print(tempInside);  Serial.println(" °C ");
+  Serial.print("Temperature: ");  Serial.print(tempInside);  Serial.println(" °C ");
   String fireTemp = String(tempInside) + String(" °C");                                                     //convert integer temperature to string temperature
   
   StaticJsonBuffer<200> jsonBuffer;
@@ -114,5 +114,32 @@ void loop() {
   Firebase.push("/planet/0/sensors/temperature", root);
   root.printTo(Serial);
 
-  delay(600000); //every 10 minutes
+  scoreHandling(tempInside, tempOutside);
+  
+  delay(10800000); //every 3 hours
+}
+
+void scoreHandling(float tempInside, float tempOutside){
+  int currentScore = Firebase.getInt("/planet/0/score");
+  int score = 0;
+
+  //Inside colder or even as outside = good
+  if(tempInside <= tempOutside){
+    if(tempInside <= 20){
+      if(tempInside < 17){
+        score += 5;
+      }
+      score += 5;
+    }
+    score += 5;
+    currentScore += score;
+  }
+  //Inside warmer
+  else{
+    score = 5;
+    currentScore -= score;
+  }
+  Firebase.setInt("/planet/0/score", currentScore);
+  Serial.println(currentScore);
+  Serial.println(score);
 }
