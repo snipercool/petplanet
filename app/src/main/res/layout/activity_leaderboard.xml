@@ -32,37 +32,93 @@
         tools:ignore="MissingConstraints">
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:orientation="horizontal"
-            android:padding="16dp">
+            android:background="@drawable/whiteroundrectangle"
+            android:padding="20dp">
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                tools:srcCompat="@tools:sample/avatars[0]" />
+            <LinearLayout
+                android:id="@+id/user"
+                android:layout_width="297dp"
+                android:layout_height="61dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                >
 
-            <TextView
-                android:id="@+id/username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="18dp"
-                android:text="BertP"
-                android:textSize="18dp" />
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignStart="@+id/user"
+                    android:src="@drawable/planet_neutral" />
 
-            <TextView
-                android:id="@+id/score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="130dp"
-                android:layout_marginTop="18dp"
-                android:text="Score= 195" />
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="17dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="Irene"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimaryDark"/>
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/user"
+                    android:layout_alignEnd="@+id/user"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="17dp"
+                    android:text="Score: 55"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/user2"
+                android:layout_below="@id/user"
+                android:layout_width="297dp"
+                android:layout_height="61dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="70dp">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignStart="@+id/user"
+                    android:src="@drawable/planet_neutral" />
+
+                <TextView
+                    android:id="@+id/tv_planet_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="17dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="BertP"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <TextView
+                    android:id="@+id/tv_planet_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/user"
+                    android:layout_alignEnd="@+id/user"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="30dp"
+                    android:text="Score: 50"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
 
     </ScrollView>
 

@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     Button signout;
     ImageView anim;
     ImageButton planet;
+    ImageButton solar;
     ImageButton graphs;
     ImageButton qrcode;
     ImageButton leaderbord;
@@ -101,9 +102,19 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
             }
         });
-        // go to zonnestelsel
-        planet = (ImageButton) findViewById(R.id.planet);
+        // go to planetinfo
+        planet = findViewById(R.id.planet);
         planet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(MainActivity.this, PlanetinfoActivity.class);
+                startActivity(intent);
+            }
+        });
+        // go to zonnestelsel
+        solar = (ImageButton) findViewById(R.id.ib_sun);
+        solar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent;
@@ -150,17 +161,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //time notification
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-        dateFormat.format(date);
-        try {
-            if (dateFormat.parse(dateFormat.format(date)).after(dateFormat.parse("18:39"))){
-                addNotification();
 
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
 
         // Firebase - initializeren van algemene variabelen.

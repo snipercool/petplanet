@@ -96,7 +96,9 @@
                 android:text="@string/tv_planet_member1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                />
         </LinearLayout>
 
     </RelativeLayout>
@@ -140,7 +142,7 @@
 
         <ImageButton
             android:id="@+id/btn_menu_planet"
-            android:layout_width="40dp"
+            android:layout_width="30dp"
             android:layout_height="fill_parent"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="20dp"
@@ -155,7 +157,7 @@
 
         <ImageButton
             android:id="@+id/btn_menu_camera"
-            android:layout_width="40dp"
+            android:layout_width="30dp"
             android:layout_height="fill_parent"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -170,7 +172,7 @@
 
         <ImageButton
             android:id="@+id/btn_menu_graphic"
-            android:layout_width="40dp"
+            android:layout_width="30dp"
             android:layout_height="fill_parent"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="10dp"

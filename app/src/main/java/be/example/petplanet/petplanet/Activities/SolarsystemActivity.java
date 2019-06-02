@@ -1,6 +1,5 @@
 package be.example.petplanet.petplanet.Activities;
 
-import android.app.AppComponentFactory;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +18,7 @@ public class SolarsystemActivity extends AppCompatActivity {
     ImageView innerring;
     ImageView sun;
     ImageButton user;
+    ImageButton add;
     Button planet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,15 @@ public class SolarsystemActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent;
                 intent = new Intent(SolarsystemActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+        add = (ImageButton) findViewById(R.id.add);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(SolarsystemActivity.this, AddingActivity.class);
                 startActivity(intent);
             }
         });
