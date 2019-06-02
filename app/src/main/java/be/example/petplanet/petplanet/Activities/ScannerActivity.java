@@ -53,11 +53,15 @@ public class ScannerActivity extends AppCompatActivity {
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mProductsReference;
+    private DatabaseReference mScoreReference;
 
     private Button back;
 
     private List<Object> resultsQr = new ArrayList<>();
     private List<Object> productList = new ArrayList<>();
+
+    private Integer score;
+    private Integer currentValue;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -86,7 +90,8 @@ public class ScannerActivity extends AppCompatActivity {
         // Products
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mProductsReference = mFirebaseDatabase.getReference().child("Products");
+        mProductsReference = mFirebaseDatabase.getReference().child("products");
+        mScoreReference = mFirebaseDatabase.getReference().child("planet").child("0").child("score");
 
         // Scanner
 
@@ -153,10 +158,14 @@ public class ScannerActivity extends AppCompatActivity {
                         public void run() {
                             TextResult.setText(qrcodes.valueAt(0).displayValue);
                             resultsQr.add(qrcodes.valueAt(0).displayValue);
-                            //ScanClass scan = new ScanClass(productList, resultsQr);
-                            Class cls = qrcodes.valueAt(0).displayValue.getClass();
-                            openDialog();
 
+                            /*
+                            * Calculate score
+                            * */
+                            ScanClass scan = new ScanClass(productList, resultsQr);
+                            score = scan.initiate();
+                            changeScore();
+                            openDialog();
                         }
                     });
                 }
@@ -181,7 +190,6 @@ public class ScannerActivity extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     // add result into array list
                     productList.add(ds.getValue());
-                    Class cls = ds.getValue().getClass();
                 }
                 ProductsClass products = new ProductsClass(productList);
             }
@@ -191,6 +199,28 @@ public class ScannerActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void changeScore(){
+        mScoreReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue().toString();
+                currentValue = Integer.parseInt(value);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        try{
+            currentValue -= score;
+            mScoreReference.setValue(currentValue);
+        }
+        catch(NullPointerException npe){
+            npe.printStackTrace();
+        }
     }
 }
