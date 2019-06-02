@@ -107,7 +107,7 @@ public class StatsActivity extends AppCompatActivity {
 
         //Firebase - initializeren van algemene variabelen.
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mSensorsDatabaseReference = mFirebaseDatabase.getReference().child("sensors");
+        mSensorsDatabaseReference = mFirebaseDatabase.getReference().child("planet").child("0").child("sensors");
         mTemperatureDatabaseReference = mSensorsDatabaseReference.child("temperature");
 
         displayGraph();
