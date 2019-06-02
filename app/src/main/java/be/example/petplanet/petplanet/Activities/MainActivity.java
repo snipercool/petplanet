@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
     private NotificationManagerCompat notificationManager;
 
 
-    Button signout;
     ImageView anim;
     ImageButton planet;
     ImageButton solar;
@@ -94,14 +93,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         scoring = (TextView) findViewById(R.id.score);
-        //signout
-        signout = (Button) findViewById(R.id.signout);
-        signout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-            }
-        });
+
         // go to planetinfo
         planet = findViewById(R.id.planet);
         planet.setOnClickListener(new View.OnClickListener() {
