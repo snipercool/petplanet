@@ -90,6 +90,7 @@ void loop() {
     }
     http.end(); //Close connection
   }
+  delay(60000);
   
   //Daytime
   timeClient.update();
@@ -110,7 +111,7 @@ void loop() {
   root["temperatureOutside"] = tempOutside;
   root["temperatureInside"] = tempInside;
   root["day"] = daysOfTheWeek[timeClient.getDay()];
-  Firebase.push("/sensors/temperature", root);
+  Firebase.push("/planet/0/sensors/temperature", root);
   root.printTo(Serial);
 
   delay(600000); //every 10 minutes
