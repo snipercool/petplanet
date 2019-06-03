@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import be.example.petplanet.petplanet.R;
+
+import static be.example.petplanet.petplanet.Activities.MainActivity.ANONYMOUS;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -41,6 +45,10 @@ public class ProfileActivity extends AppCompatActivity {
     // Firebase - authentication
 
     private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private FirebaseUser user;
+
+    private String mUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +66,19 @@ public class ProfileActivity extends AppCompatActivity {
         // Firebase - initializeren van referentie.
 
         mUniqueReference = mFirebaseDatabase.getReference();
+
         //signout
         signout = findViewById(R.id.signout);
+
+        user = mFirebaseAuth.getCurrentUser();
+
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mFirebaseAuth.signOut();
+                if (user != null) {
+                    mFirebaseAuth.signOut();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
             }
         });
 

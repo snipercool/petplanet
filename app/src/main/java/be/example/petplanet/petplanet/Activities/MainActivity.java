@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        scoring = (TextView) findViewById(R.id.score);
+        scoring = findViewById(R.id.score);
 
         // go to planetinfo
         planet = findViewById(R.id.planet);
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // go to zonnestelsel
-        solar = (ImageButton) findViewById(R.id.ib_sun);
+        solar = findViewById(R.id.ib_sun);
         solar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         anim.startAnimation(animation);
 
         // go to qrcode
-        qrcode = (ImageButton) findViewById(R.id.qrcode);
+        qrcode = findViewById(R.id.qrcode);
         qrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // go to grafieken
-        graphs = (ImageButton) findViewById(R.id.graphs);
+        graphs = findViewById(R.id.graphs);
         graphs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // go to grafieken
-        leaderbord = (ImageButton) findViewById(R.id.leader);
+        leaderbord = findViewById(R.id.leader);
         leaderbord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,10 +150,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        //time notification
-
-
 
         // Firebase - initializeren van algemene variabelen.
 
