@@ -58,7 +58,14 @@ public class ProfileActivity extends AppCompatActivity {
         // Firebase - initializeren van referentie.
 
         mUniqueReference = mFirebaseDatabase.getReference();
-
+        //signout
+        signout = findViewById(R.id.signout);
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFirebaseAuth.signOut();
+            }
+        });
 
         //get score
         mPlanetReference = mFirebaseDatabase.getReference().child("planet");
